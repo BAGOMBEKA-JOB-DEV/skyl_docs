@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <title>skyl</title>
+  <!--
+    The header's SkylMark, rendered standalone.
+
+    Two deliberate differences from the component. The fill is the literal
+    sky-500 rather than a CSS custom property, because a favicon renders outside
+    the page and custom properties do not resolve there. And the strokes are
+    thicker with the original 0.9 opacity dropped, because at 16px the thin
+    translucent version turns to mud.
+
+    Keep this comment free of double hyphens: an SVG served as image/svg+xml is
+    parsed as strict XML, which rejects them, and the icon silently fails to
+    render while still returning 200.
+  -->
+  <path
+    d="M6 20a5 5 0 0 1 1.2-9.85A7 7 0 0 1 20.6 9.3 5.35 5.35 0 1 1 22 20H6z"
+    fill="#338ffb"
+  />
+  <path
+    d="M11 24.5h10M14 28.5h7"
+    stroke="#338ffb"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+</svg>

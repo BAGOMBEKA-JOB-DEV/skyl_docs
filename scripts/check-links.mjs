@@ -180,6 +180,35 @@ for (const { route, file } of files) {
 }
 
 // --------------------------------------------------------------------------
+// App icons. An SVG served as image/svg+xml is parsed as strict XML, so a
+// double hyphen inside a comment makes the browser reject it — while the file
+// still returns 200 and passes every check that only looks at status codes.
+// This shipped once; it is cheap to make impossible.
+// --------------------------------------------------------------------------
+
+for (const icon of ['icon.svg']) {
+  const file = path.join(ROOT, 'src', 'app', icon);
+  if (!fs.existsSync(file)) {
+    errors.push(`src/app/${icon} is missing — the site would fall back to the browser's default favicon`);
+    continue;
+  }
+  const svg = fs.readFileSync(file, 'utf8');
+  for (const comment of svg.matchAll(/<!--([\s\S]*?)-->/g)) {
+    if (comment[1].includes('--')) {
+      errors.push(
+        `src/app/${icon}: a comment contains a double hyphen, which is invalid XML — ` +
+          `browsers will refuse to render the icon`,
+      );
+    }
+  }
+  if (/var\(/.test(svg)) {
+    errors.push(
+      `src/app/${icon}: uses a CSS custom property, which does not resolve outside the page`,
+    );
+  }
+}
+
+// --------------------------------------------------------------------------
 // The top navigation. Checked from source, because a dead nav item is the most
 // visible possible broken link and lives outside the sidebars entirely.
 // --------------------------------------------------------------------------
