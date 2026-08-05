@@ -6,6 +6,21 @@
  * this file is the single place that changes.
  */
 
+/**
+ * The origin the site will be served from.
+ *
+ * It is the canonical URL in `sitemap.xml` and `robots.txt`, the `metadataBase`
+ * every relative link resolves against, and the `og:url` on every social card —
+ * so a wrong value here is wrong in four places at once, none of them visible
+ * when browsing locally.
+ *
+ * Set `SITE_URL` at build time. The fallback keeps `npm run dev` and a plain
+ * `npm run build` working with nothing configured; it is deliberately localhost
+ * rather than a guess at a production domain, because a plausible-looking wrong
+ * origin is harder to notice than an obviously local one.
+ */
+const siteURL = process.env['SITE_URL']?.replace(/\/$/, '') ?? 'http://localhost:3000';
+
 export const siteConfig = {
   name: 'skyl',
   tagline: 'One Go interface for every AI model',
@@ -13,7 +28,7 @@ export const siteConfig = {
     'skyl is a small, dependency-light Go library that lets you talk to Claude, GPT, ' +
     'Gemini, and hundreds of other models through a single, stable interface — then ' +
     'switch between them by changing one string.',
-  url: 'https://bagombeka-job-dev.github.io/skyl_docs',
+  url: siteURL,
   repo: 'https://github.com/BAGOMBEKA-JOB-DEV/skyl',
   docsRepo: 'https://github.com/BAGOMBEKA-JOB-DEV/skyl_docs',
   license: 'Apache-2.0',
