@@ -7,26 +7,46 @@
  */
 
 /**
- * The origin the site will be served from.
+ * The origin the site is served from.
  *
  * It is the canonical URL in `sitemap.xml` and `robots.txt`, the `metadataBase`
- * every relative link resolves against, and the `og:url` on every social card —
- * so a wrong value here is wrong in four places at once, none of them visible
- * when browsing locally.
+ * every relative link resolves against, and the `og:url` on every page — so a
+ * wrong value is wrong in four places at once, none of them visible while
+ * browsing locally. That is exactly how a deploy once shipped with
+ * `http://localhost:3000` as its canonical origin.
  *
- * Set `SITE_URL` at build time. The fallback keeps `npm run dev` and a plain
- * `npm run build` working with nothing configured; it is deliberately localhost
- * rather than a guess at a production domain, because a plausible-looking wrong
- * origin is harder to notice than an obviously local one.
+ * Resolution order, first match wins:
+ *
+ *   1. `SITE_URL`                        — explicit; a custom domain
+ *   2. `VERCEL_PROJECT_PRODUCTION_URL`   — the project's stable production host
+ *   3. `VERCEL_URL`                      — this specific deployment
+ *   4. localhost                          — local dev and a bare `npm run build`
+ *
+ * Vercel supplies its two without a scheme, so they are prefixed. Deriving the
+ * origin from the platform means a correct deploy needs no configuration, while
+ * an explicit `SITE_URL` still wins when a real domain arrives.
  */
-const siteURL = process.env['SITE_URL']?.replace(/\/$/, '') ?? 'http://localhost:3000';
+function resolveSiteURL(): string {
+  const explicit = process.env['SITE_URL'];
+  if (explicit) return explicit.replace(/\/$/, '');
+
+  const host = process.env['VERCEL_PROJECT_PRODUCTION_URL'] ?? process.env['VERCEL_URL'];
+  if (host) return `https://${host.replace(/^https?:\/\//, '').replace(/\/$/, '')}`;
+
+  return 'http://localhost:3000';
+}
+
+const siteURL = resolveSiteURL();
 
 export const siteConfig = {
   name: 'skyl',
   tagline: 'One Go interface for every AI model',
   description:
+    // 400+ is the figure skyl's own README publishes. Keep the two in step: this
+    // string is the og:description and Twitter card on all 165 pages, so a
+    // number invented here would outrank the source everywhere it is shared.
     'skyl is a small, dependency-light Go library that lets you talk to Claude, GPT, ' +
-    'Gemini, and hundreds of other models through a single, stable interface — then ' +
+    'Gemini, and 400+ other models through a single, stable interface — then ' +
     'switch between them by changing one string.',
   url: siteURL,
   repo: 'https://github.com/BAGOMBEKA-JOB-DEV/skyl',
