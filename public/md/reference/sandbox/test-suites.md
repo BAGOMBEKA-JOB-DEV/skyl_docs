@@ -40,8 +40,16 @@ a field name is wrong, the fake is wrong in the same way and **both stay green**
 Only the live suite settles it, and it needs your own credentials:
 
 <TerminalBlock>{`export ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=...
-go test -tags=integration ./provider/
-cd provider/anthropic && go test -tags=integration ./...`}</TerminalBlock>
+
+# openai, gemini and openaicompat live in the root module.
+go test -tags=integration -v -run TestLive ./provider/
+
+# provider/anthropic is its own module.
+cd provider/anthropic && go test -tags=integration -v -run TestLive ./...`}</TerminalBlock>
+
+A full pass is **8 checks per provider** and costs roughly **$0.05–0.50**. See
+[Validating against real providers](/reference/sandbox/validating) for what each
+check proves and how to read a failure.
 
 </Pitfall>
 

@@ -103,8 +103,10 @@ over real sockets and CI-green — but every fake in the test suite was written
 from the same provider documentation as the adapter it tests. If a field name is
 wrong, the fake is wrong in the same way and both stay green.
 
-Only `go test -tags=integration` settles it, and it needs credentials the
-project does not have.
+Only `go test -tags=integration -v -run TestLive ./provider/` settles it, and
+it needs credentials the project does not have. The procedure, the cost and the
+failure triage are documented in
+[Validating against real providers](/reference/sandbox/validating).
 
 </Pitfall>
 

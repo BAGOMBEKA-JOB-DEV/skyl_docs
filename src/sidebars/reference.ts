@@ -159,6 +159,7 @@ export const sidebarReference: Sidebar = [
       { title: 'Running it', path: '/reference/sandbox/running-it' },
       { title: 'Forcing failures', path: '/reference/sandbox/forcing-failures' },
       { title: 'The three test suites', path: '/reference/sandbox/test-suites' },
+      { title: 'Validating against real providers', path: '/reference/sandbox/validating' },
     ],
   },
 ];

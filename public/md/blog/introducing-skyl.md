@@ -106,9 +106,11 @@ story:
 <TestSuiteTable />
 
 Only the third settles it, and it needs credentials the project does not have.
-If you have a key, running `go test -tags=integration ./provider/` — or
-recording a [cassette](/reference/sandbox/test-suites) — is the single most
-useful contribution available today.
+If you have a key, running
+`go test -tags=integration -v -run TestLive ./provider/` — or recording a
+cassette — is the single most useful contribution available today. It is
+**8 checks per provider** and costs roughly **$0.05–0.50**; the full procedure
+is in [Validating against real providers](/reference/sandbox/validating).
 
 ## Try it without a key
 

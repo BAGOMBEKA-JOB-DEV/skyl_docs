@@ -166,7 +166,11 @@ reasoning about cost or quality.
 Only the live suite settles the question, and it needs your own key:
 
 <TerminalBlock>{`export ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=...
-go test -tags=integration ./provider/`}</TerminalBlock>
+go test -tags=integration -v -run TestLive ./provider/`}</TerminalBlock>
+
+Absent keys skip cleanly rather than failing, so you can run it with whichever
+you have. See
+[Validating against real providers](/reference/sandbox/validating).
 
 ## The three suites
 
