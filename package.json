@@ -2,7 +2,7 @@
   "name": "skyl-docs",
   "version": "0.1.0",
   "private": true,
-  "description": "Documentation site for skyl — one Go interface for every AI model.",
+  "description": "Documentation site for skyl \u2014 one Go interface for every AI model.",
   "type": "module",
   "engines": {
     "node": ">=20.9.0"
@@ -21,9 +21,10 @@
     "test:e2e": "playwright test",
     "check:links": "node scripts/check-links.mjs",
     "check:snippets": "node scripts/check-snippets.mjs",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:links && npm run check:snippets",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:links && npm run check:wire",
     "emit:md": "node scripts/emit-markdown.mjs",
-    "prebuild": "node scripts/emit-markdown.mjs"
+    "prebuild": "node scripts/emit-markdown.mjs",
+    "check:wire": "node scripts/check-wire-snippets.mjs"
   },
   "dependencies": {
     "next": "^15.5.22",

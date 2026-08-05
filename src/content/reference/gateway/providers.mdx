@@ -46,10 +46,35 @@ Requires `Authorization: Bearer <SKYL_AUTH_TOKEN>`. Returns
 
 <Recipe title="Discovering what is available">
 
+<LanguageTabs>
+
 ```bash
 curl -sS localhost:8080/v1/providers \
   -H "Authorization: Bearer $SKYL_AUTH_TOKEN"
 ```
+
+```python verify
+import httpx
+
+r = httpx.get(f"{BASE}/v1/providers", headers=HEADERS)
+r.raise_for_status()
+print(r.json())
+```
+
+```ts verify
+const res = await fetch(`${BASE}/v1/providers`, { headers: HEADERS });
+if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+console.log(await res.json());
+```
+
+</LanguageTabs>
+
+<Note>
+
+`BASE` and `HEADERS` are set up in
+[Calling the gateway from another language](/reference/gateway/from-other-languages).
+
+</Note>
 
 </Recipe>
 

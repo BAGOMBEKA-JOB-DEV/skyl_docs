@@ -136,6 +136,42 @@ with httpx.stream("POST", "http://localhost:8080/v1/chat/stream",
 
 </Recipe>
 
+<Recipe title="TypeScript">
+
+```ts verify
+const res = await fetch(`${BASE}/v1/chat/stream`, {
+  method: 'POST',
+  headers: HEADERS,
+  body: JSON.stringify({
+    model: 'gpt-5.6',
+    max_tokens: 256,
+    messages: [{ role: 'user', text: 'Hello' }],
+  }),
+});
+if (!res.ok || !res.body) throw new Error(`stream failed: ${res.status}`);
+
+const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+let buffer = '';
+
+for (;;) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  buffer += value;
+
+  // A chunk can split a frame in half, so only parse complete lines.
+  const lines = buffer.split('\n');
+  buffer = lines.pop() ?? '';
+
+  for (const line of lines) {
+    if (!line.startsWith('data: ')) continue;   // skips keep-alive comments
+    const event = JSON.parse(line.slice(6));
+    if (event.type === 'text_delta') process.stdout.write(event.text);
+  }
+}
+```
+
+</Recipe>
+
 ## Errors
 
 Failures **before** the stream starts use the same status codes as
