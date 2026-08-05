@@ -104,8 +104,23 @@ client := skyl.New(openai.New(key))
 
 ## Deployment
 
-`npm run build` produces a static export in `out/`. The `deploy` workflow
-publishes it to GitHub Pages on every push to `main`, gated on the link check.
+`npm run build` produces a fully static export in `out/` — no Node server at
+runtime. Copy that directory to any static host: nginx, S3, Netlify, Vercel,
+Cloudflare Pages.
+
+Set `SITE_URL` to the origin the site will be served from. It becomes the
+canonical URL in `sitemap.xml` and `robots.txt` and the `og:url` on every page;
+unset, it falls back to `http://localhost:3000`, which is right for local work
+and wrong for anything published.
+
+```bash
+SITE_URL=https://docs.example.com npm run build
+```
+
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build, the
+link check, the Go snippet compiler and the end-to-end suite, and uploads `out/`
+as a build artefact — so a built site is downloadable from any run without a
+deployment step.
 
 ## Licence
 
