@@ -36,13 +36,19 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="ml-auto flex items-center gap-2 md:ml-4">
+        {/*
+          `flex-1` is what makes the bar span the window: the search absorbs the
+          slack, so the nav and the icon group land against the right edge.
+          This was `ml-auto … md:ml-4`, where the responsive margin cancelled
+          the auto one at every desktop width and the whole bar collapsed left.
+        */}
+        <div className="flex min-w-0 flex-1 items-center">
           <SearchDialog index={index} />
         </div>
 
         <NavLinks items={[...topNav]} />
 
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           <ThemeToggle />
           <a
             href={siteConfig.repo}
@@ -68,7 +74,12 @@ function SkylMark() {
         fill="var(--accent)"
         opacity="0.9"
       />
-      <path d="M11 24.5h10M14 28h7" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" />
+      <path
+        d="M11 24.5h10M14 28h7"
+        stroke="var(--accent)"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

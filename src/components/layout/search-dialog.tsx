@@ -95,7 +95,10 @@ export function SearchDialog({ index }: { index: SearchEntry[] }) {
         type="button"
         onClick={() => setOpen(true)}
         data-testid="search-open"
-        className="flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm text-[var(--fg-subtle)] transition-colors hover:border-[var(--accent)] md:w-64"
+        // `md:w-full` rather than a fixed width: the trigger fills the flexible
+        // container in the header, which is what pushes the nav and icons to
+        // the right edge instead of leaving the bar packed to the left.
+        className="flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm text-[var(--fg-subtle)] transition-colors hover:border-[var(--accent)] md:w-full"
         style={{ background: 'var(--bg-subtle)' }}
         aria-label="Search documentation"
       >
@@ -166,7 +169,15 @@ export function SearchDialog({ index }: { index: SearchEntry[] }) {
 
 function SearchIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden
+    >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
     </svg>

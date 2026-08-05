@@ -47,6 +47,41 @@ for (const width of WIDTHS) {
   });
 }
 
+/**
+ * The header packed itself into the left 59% of the window, because a
+ * responsive `md:ml-4` cancelled the `ml-auto` that was supposed to push the
+ * nav right. At 1366px the rightmost element ended at 808 of 1366 — 558px of
+ * dead space — while react.dev reached 1346.
+ */
+for (const width of [1280, 1366, 1440]) {
+  test(`the header spans the window at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/learn/');
+
+    const right = await page.evaluate(() => {
+      const items = [...document.querySelectorAll('header a, header button')]
+        .map((e) => e.getBoundingClientRect())
+        .filter((r) => r.y < 70 && r.width > 8);
+      return Math.max(...items.map((r) => r.x + r.width));
+    });
+
+    // Everything past the container's own padding is dead space.
+    expect(
+      width - right,
+      `${width}px: ${Math.round(width - right)}px unused on the right`,
+    ).toBeLessThanOrEqual(40);
+  });
+}
+
+test('the search box grows into the header slack', async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.goto('/learn/');
+
+  // It was a fixed 256px, which is what left the bar unable to reach the edge.
+  const search = (await page.getByTestId('search-open').boundingBox())!;
+  expect(search.width).toBeGreaterThan(500);
+});
+
 test('the footer spans the page rather than the reading column', async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 900 });
   await page.goto('/learn/');
