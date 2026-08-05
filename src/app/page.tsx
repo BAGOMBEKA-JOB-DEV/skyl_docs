@@ -58,7 +58,7 @@ export default function HomePage() {
           </p>
 
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[var(--fg-muted)]">
-            Talk to Claude, GPT, Gemini, and hundreds of other models through a single, stable
+            Talk to Claude, GPT, Gemini, Ollama and 400+ other models through a single, stable
             interface — then switch between them by changing one string.
           </p>
 

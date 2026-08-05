@@ -42,8 +42,11 @@ export const siteConfig = {
   name: 'skyl',
   tagline: 'One Go interface for every AI model',
   description:
+    // 400+ is the figure skyl's own README publishes. Keep the two in step: this
+    // string is the og:description and Twitter card on all 165 pages, so a
+    // number invented here would outrank the source everywhere it is shared.
     'skyl is a small, dependency-light Go library that lets you talk to Claude, GPT, ' +
-    'Gemini, and hundreds of other models through a single, stable interface — then ' +
+    'Gemini, and 400+ other models through a single, stable interface — then ' +
     'switch between them by changing one string.',
   url: siteURL,
   repo: 'https://github.com/BAGOMBEKA-JOB-DEV/skyl',
