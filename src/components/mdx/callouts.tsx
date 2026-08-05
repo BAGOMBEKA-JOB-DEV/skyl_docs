@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 /**
- * The callout family, following react.dev's vocabulary.
+ * The callout family.
  *
  * Each has one job and they are not interchangeable:
  *   Note      — useful context you can skip.

@@ -97,7 +97,7 @@ test.describe('feature matrix', () => {
 });
 
 test.describe('learn pages', () => {
-  test('carry the react.dev furniture', async ({ page }) => {
+  test('carry the Learn-page furniture', async ({ page }) => {
     // A leaf page promises what *this page* covers…
     await page.goto('/learn/your-first-stream/');
     await expect(page.getByRole('region', { name: 'You will learn' })).toBeVisible();

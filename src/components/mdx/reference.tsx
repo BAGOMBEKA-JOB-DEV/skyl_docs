@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { GoField } from '@/types';
 
 /**
- * The Reference-page template, following react.dev's rigid structure:
+ * The Reference-page template:
  *
  *   Reference → signature, Parameters, Returns, Caveats
  *   Usage     → task-oriented recipes

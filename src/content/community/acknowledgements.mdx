@@ -65,13 +65,6 @@ APIs worth talking to. It documents their differences bluntly — that is what a
 compatibility layer is for — but the differences exist because each of them made
 real design decisions, not arbitrary ones.
 
-## This documentation
-
-Structured after **[react.dev](https://react.dev)**, whose two-track
-Learn/Reference split, page templates, and component vocabulary are the best
-working demonstration of documentation as a designed artefact rather than a pile
-of Markdown.
-
 ## License
 
 skyl is Apache 2.0. Attributions are recorded in `NOTICE`, and each module

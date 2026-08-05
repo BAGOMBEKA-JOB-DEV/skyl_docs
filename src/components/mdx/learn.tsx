@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 /**
- * The Learn-track page furniture, following react.dev.
+ * The Learn-track page furniture.
  *
  * These components are what make a Learn page a Learn page: an intro that
  * frames the topic, a contract about what you will know afterwards, a recap

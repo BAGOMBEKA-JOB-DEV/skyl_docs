@@ -1,5 +1,5 @@
 /**
- * Sidebar model, following react.dev's `sidebar*.json` pattern.
+ * Sidebar model.
  *
  * A route exists on this site if and only if it appears in one of these trees.
  * That is deliberate: the link checker walks the sidebars and asserts an MDX

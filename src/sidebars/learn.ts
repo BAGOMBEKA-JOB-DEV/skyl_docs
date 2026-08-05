@@ -3,8 +3,8 @@ import type { Sidebar } from './types';
 /**
  * The Learn track: narrative, progressive, read in order.
  *
- * Structured after react.dev — a GET STARTED section, then chapters that each
- * open with an overview page and expand into focused child pages.
+ * A GET STARTED section, then chapters that each open with an overview page and
+ * expand into focused child pages.
  */
 export const sidebarLearn: Sidebar = [
   {

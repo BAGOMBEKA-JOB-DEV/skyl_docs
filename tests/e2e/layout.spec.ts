@@ -50,8 +50,8 @@ for (const width of WIDTHS) {
 /**
  * The header packed itself into the left 59% of the window, because a
  * responsive `md:ml-4` cancelled the `ml-auto` that was supposed to push the
- * nav right. At 1366px the rightmost element ended at 808 of 1366 — 558px of
- * dead space — while react.dev reached 1346.
+ * nav right. At 1366px the rightmost element ended at 808 — 558px of dead
+ * space. It should reach the container's padding, and nothing further.
  */
 for (const width of [1280, 1366, 1440]) {
   test(`the header spans the window at ${width}px`, async ({ page }) => {

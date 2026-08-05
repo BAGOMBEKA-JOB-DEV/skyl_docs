@@ -74,7 +74,7 @@ export const modules = [
 ] as const;
 
 /**
- * Top-level navigation, mirroring react.dev's four-item bar.
+ * Top-level navigation.
  *
  * Every href here is asserted to resolve by scripts/check-links.mjs — this item
  * set once shipped a Blog link to a page that did not exist, and the checker

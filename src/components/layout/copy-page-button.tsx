@@ -5,9 +5,8 @@ import { useState } from 'react';
 /**
  * Copies the page's Markdown source.
  *
- * react.dev added this for readers pasting a page into an LLM, and the same
- * reasoning applies here: the source is more useful to a machine than the
- * rendered HTML, and it is already on disk.
+ * For a reader pasting a page into an LLM, the source is more useful than the
+ * rendered HTML — and it is already on disk, so serving it costs nothing.
  */
 export function CopyPageButton({ markdownPath }: { markdownPath: string }) {
   const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');

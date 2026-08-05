@@ -4,8 +4,8 @@ import { CopyButton } from './code-block';
 /**
  * A command you type, distinguished from a program you write.
  *
- * react.dev separates these for a good reason: a reader scanning for "what do I
- * run" should not have to read Go to find it.
+ * The separation earns its keep: a reader scanning for "what do I run" should
+ * not have to read Go to find it.
  */
 export function TerminalBlock({ children }: { children: ReactNode }) {
   const text = extractText(children);

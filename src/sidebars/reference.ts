@@ -3,9 +3,9 @@ import type { Sidebar } from './types';
 /**
  * The Reference track: one page per symbol, rigidly templated.
  *
- * Grouped by module rather than by topic, mirroring react.dev's per-package
- * sidebar — because skyl's module split is load-bearing, and a reader needs to
- * know whether a symbol costs them a dependency.
+ * Grouped by module rather than by topic, because skyl's module split is
+ * load-bearing: a reader needs to know whether a symbol costs them a
+ * dependency.
  */
 export const sidebarReference: Sidebar = [
   {

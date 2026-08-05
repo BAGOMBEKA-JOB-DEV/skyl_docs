@@ -1,6 +1,6 @@
 import type { Sidebar } from './types';
 
-/** Community and project governance, mirroring react.dev's Community track. */
+/** Community and project governance. */
 export const sidebarCommunity: Sidebar = [
   {
     title: 'Get involved',

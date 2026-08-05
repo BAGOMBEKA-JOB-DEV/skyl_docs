@@ -3,10 +3,9 @@
  * Copies every page's Markdown source into `public/md/`, so the "Copy page"
  * button has something to fetch.
  *
- * react.dev added that affordance for readers pasting a page into an LLM, and
- * the same reasoning applies: the source is more useful to a machine than the
- * rendered HTML, and it is already on disk. Serving it as a static file keeps
- * the site a pure static export.
+ * For a reader pasting a page into an LLM, the source is more useful than the
+ * rendered HTML. Serving it as a static file keeps the site a pure static
+ * export.
  */
 
 import fs from 'node:fs';

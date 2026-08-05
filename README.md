@@ -3,9 +3,10 @@
 The documentation site for [skyl](https://github.com/BAGOMBEKA-JOB-DEV/skyl) —
 *one Go interface for every AI model*.
 
-Built with Next.js 15 (App Router) and structured after
-[react.dev](https://react.dev): a two-track **Learn** / **Reference** split, the
-same page templates, and an owned MDX component vocabulary.
+Built with Next.js 15 (App Router). Two tracks — **Learn** for narrative,
+read-in-order material and **Reference** for one page per symbol — sharing a
+strict set of page templates and an MDX component vocabulary owned in this
+repository.
 
 ## Running it
 
@@ -67,7 +68,7 @@ src/
 ├── content/        160 MDX pages
 ├── data/           Typed data extracted from the Go source — every table on
 │                   the site renders from here rather than being hand-written
-├── sidebars/       learn.ts, reference.ts, community.ts (react.dev's pattern)
+├── sidebars/       learn.ts, reference.ts, community.ts, blog.ts
 ├── lib/            MDX pipeline, Shiki highlighting, search index
 └── config/site.ts  Version, module table, top nav
 ```

@@ -82,9 +82,9 @@ function heading(level: 2 | 3 | 4) {
 /**
  * The MDX component vocabulary.
  *
- * Modelled on react.dev's `MDXComponents.tsx`: owning this map — rather than
- * inheriting a docs theme's — is what makes `<YouWillLearn>`, `<Recap>` and
- * `<Challenges>` possible at all.
+ * Owning this map — rather than inheriting a docs theme's — is what makes
+ * `<YouWillLearn>`, `<Recap>` and `<Challenges>` possible at all. No prebuilt
+ * theme offers them, and a page can only use what appears here.
  */
 export const mdxComponents = {
   // --- base elements ---

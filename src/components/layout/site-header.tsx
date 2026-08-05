@@ -8,10 +8,9 @@ import { NavLinks, MobileNavToggle } from './nav-links';
 /**
  * The global header.
  *
- * Four nav items, a version badge and a search box, following react.dev — a
- * shape that has been load-bearing on a very large docs site for years, and
- * which tells a reader at a glance that there are exactly two kinds of page
- * here: things to read, and things to look up.
+ * Four nav items, a version badge and a search box — enough to tell a reader at
+ * a glance that there are two kinds of page here: things to read, and things to
+ * look up.
  */
 export function SiteHeader() {
   const index = buildSearchIndex();
