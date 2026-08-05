@@ -93,8 +93,15 @@ const PAIRED_TAGS = [
 
 const PLACEHOLDER = /\b(TODO|FIXME|TBD|lorem ipsum|coming soon|placeholder)\b/i;
 
-/** Routes that exist outside the three sidebars. */
-const EXTRA_ROUTES = new Set(['/', '/reference', '/blog']);
+/**
+ * Routes that exist outside the three sidebars.
+ *
+ * Keep this list minimal. It is an *exemption* from checking, so anything added
+ * here stops being verified — which is exactly how a dead `/blog` nav item
+ * survived: it was listed here rather than checked, and 404'd in the browser
+ * while this script reported success.
+ */
+const EXTRA_ROUTES = new Set(['/']);
 
 for (const { route, file } of files) {
   const raw = fs.readFileSync(file, 'utf8');
@@ -158,6 +165,28 @@ for (const { route, file } of files) {
   }
 
   void route;
+}
+
+// --------------------------------------------------------------------------
+// The top navigation. Checked from source, because a dead nav item is the most
+// visible possible broken link and lives outside the sidebars entirely.
+// --------------------------------------------------------------------------
+
+const siteConfig = fs.readFileSync(path.join(ROOT, 'src', 'config', 'site.ts'), 'utf8');
+const navBlock = /export const topNav = \[([\s\S]*?)\] as const;/.exec(siteConfig);
+
+if (!navBlock) {
+  errors.push('src/config/site.ts: could not find topNav — the nav check is not running');
+} else {
+  const navHrefs = [...navBlock[1].matchAll(/href:\s*'([^']+)'/g)].map((m) => m[1]);
+  if (navHrefs.length === 0) {
+    errors.push('src/config/site.ts: topNav has no entries');
+  }
+  for (const href of navHrefs) {
+    const target = href.replace(/\/$/, '') || '/';
+    if (byRoute.has(target) || EXTRA_ROUTES.has(target)) continue;
+    errors.push(`src/config/site.ts: nav item "${href}" points at a route that does not exist`);
+  }
 }
 
 // --------------------------------------------------------------------------
