@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens.
+ *
+ * skyl's identity is "sky" — a cool blue that reads as infrastructure rather
+ * than as a consumer product. Both themes are first-class: a documentation site
+ * is read at 2am as often as at 2pm.
+ */
+
+@theme {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:
+    ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --color-sky-50: #eef7ff;
+  --color-sky-100: #d9edff;
+  --color-sky-200: #bce0ff;
+  --color-sky-300: #8ecdff;
+  --color-sky-400: #59b0ff;
+  --color-sky-500: #338ffb;
+  --color-sky-600: #1d70f0;
+  --color-sky-700: #1659dc;
+  --color-sky-800: #1849b2;
+  --color-sky-900: #1a418c;
+  --color-sky-950: #142955;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --bg-subtle: #f6f8fa;
+  --bg-inset: #eef1f4;
+  --bg-code: #f6f8fa;
+  --bg-elevated: #ffffff;
+
+  --fg: #1c2024;
+  --fg-muted: #57606a;
+  --fg-subtle: #7a838e;
+
+  --border: #d8dee4;
+  --border-subtle: #e6eaef;
+
+  --accent: #1d70f0;
+  --accent-fg: #ffffff;
+  --accent-subtle: #eef7ff;
+
+  --note: #1d70f0;
+  --note-bg: #eff6ff;
+  --pitfall: #cf222e;
+  --pitfall-bg: #fff5f5;
+  --deep-dive: #8250df;
+  --deep-dive-bg: #f8f4ff;
+  --recap: #1a7f37;
+  --recap-bg: #f0fbf3;
+  --warn: #9a6700;
+  --warn-bg: #fff8e6;
+
+  --shadow-card: 0 1px 2px rgb(27 31 36 / 0.08), 0 3px 8px rgb(27 31 36 / 0.05);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #0d1117;
+  --bg-subtle: #151b23;
+  --bg-inset: #1c232c;
+  --bg-code: #161b22;
+  --bg-elevated: #161b22;
+
+  --fg: #e6edf3;
+  --fg-muted: #9198a1;
+  --fg-subtle: #6e7681;
+
+  --border: #2f3742;
+  --border-subtle: #21262d;
+
+  --accent: #59b0ff;
+  --accent-fg: #0d1117;
+  --accent-subtle: #10243e;
+
+  --note: #59b0ff;
+  --note-bg: #0f1f33;
+  --pitfall: #ff7b72;
+  --pitfall-bg: #2b1416;
+  --deep-dive: #d2a8ff;
+  --deep-dive-bg: #21172f;
+  --recap: #56d364;
+  --recap-bg: #10231a;
+  --warn: #e3b341;
+  --warn-bg: #2a2213;
+
+  --shadow-card: 0 1px 2px rgb(1 4 9 / 0.5), 0 3px 8px rgb(1 4 9 / 0.4);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-inset: var(--bg-inset);
+  --color-bg-code: var(--bg-code);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-border-default: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-subtle: var(--accent-subtle);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored headings must not hide under the sticky header. */
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* A visible focus ring everywhere: this site is navigated by keyboard. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::selection {
+  background: var(--accent-subtle);
+  color: var(--fg);
+}
+
+/* Shiki emits both themes; we show one and hide the other. */
+html:not(.dark) .shiki--dark {
+  display: none;
+}
+html.dark .shiki--light {
+  display: none;
+}
+
+.shiki {
+  background: transparent !important;
+  overflow-x: auto;
+}
+
+.shiki code {
+  display: block;
+  width: fit-content;
+  min-width: 100%;
+}
+
+.shiki .line {
+  display: inline-block;
+  width: 100%;
+  padding-inline: 1rem;
+}
+
+.shiki .line.highlighted {
+  background: var(--accent-subtle);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+/* Wide content must scroll inside its own box, never the page. */
+.prose-skyl table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
