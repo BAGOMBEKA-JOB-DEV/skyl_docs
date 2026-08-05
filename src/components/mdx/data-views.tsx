@@ -24,6 +24,7 @@ import {
   usageFields,
 } from '@/data/api-symbols';
 import { modules } from '@/config/site';
+import { blogPosts, formatPostDate } from '@/data/blog';
 import { DataTable, FieldTable } from './reference';
 
 /**
@@ -92,7 +93,11 @@ export function EventTypeTable() {
   return (
     <DataTable
       headers={['Constant', 'Value', 'Meaning']}
-      rows={eventTypes.map((e) => [<code key="c">{e.constant}</code>, <code key="v">{e.value}</code>, e.meaning])}
+      rows={eventTypes.map((e) => [
+        <code key="c">{e.constant}</code>,
+        <code key="v">{e.value}</code>,
+        e.meaning,
+      ])}
     />
   );
 }
@@ -348,5 +353,43 @@ export function TestSuiteTable() {
         s.proves,
       ])}
     />
+  );
+}
+
+/**
+ * The blog index, newest first.
+ *
+ * Reads `src/data/blog.ts`, the same source the sidebar uses, so a post cannot
+ * appear in the navigation with one title and here with another.
+ */
+export function BlogIndex() {
+  return (
+    <div className="my-8 space-y-5">
+      {blogPosts.map((post) => (
+        <article
+          key={post.slug}
+          className="rounded-xl border p-6 transition-colors hover:border-[var(--accent)]"
+          style={{ background: 'var(--bg-elevated)', boxShadow: 'var(--shadow-card)' }}
+        >
+          <p className="text-sm text-[var(--fg-subtle)]">
+            <time dateTime={post.date}>{formatPostDate(post.date)}</time> · {post.author}
+          </p>
+          <h2 className="!mt-2 !mb-2 !border-0 !pb-0 text-2xl font-bold">
+            <Link
+              href={`/blog/${post.slug}`}
+              className="text-[var(--fg)] hover:text-[var(--accent)]"
+            >
+              {post.title}
+            </Link>
+          </h2>
+          <p className="!mb-0 leading-7 text-[var(--fg-muted)]">{post.summary}</p>
+          <p className="!mb-0 !mt-3">
+            <Link href={`/blog/${post.slug}`} className="font-semibold text-[var(--accent)]">
+              Read more →
+            </Link>
+          </p>
+        </article>
+      ))}
+    </div>
   );
 }

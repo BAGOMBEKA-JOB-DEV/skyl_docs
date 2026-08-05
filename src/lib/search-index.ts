@@ -1,4 +1,4 @@
-import { sidebarCommunity, sidebarLearn, sidebarReference } from '@/sidebars';
+import { sidebarBlog, sidebarCommunity, sidebarLearn, sidebarReference } from '@/sidebars';
 import type { Sidebar, SidebarItem } from '@/sidebars/types';
 import type { SearchEntry } from '@/components/layout/search-dialog';
 
@@ -32,6 +32,7 @@ export function buildSearchIndex(): SearchEntry[] {
   collect(sidebarLearn, 'Learn');
   collect(sidebarReference, 'Reference');
   collect(sidebarCommunity, 'Community');
+  collect(sidebarBlog, 'Blog');
 
   return out;
 }

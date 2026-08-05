@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { formatPostDate } from '@/data/blog';
 import type { SidebarItem, SidebarSection } from '@/sidebars/types';
 import { CopyPageButton } from './copy-page-button';
 
@@ -47,12 +48,16 @@ export function PageHeader({
   badge,
   markdownPath,
   noCopy,
+  date,
+  author,
 }: {
   title: string;
   description?: string;
   badge?: string;
   markdownPath: string;
   noCopy?: boolean;
+  date?: string;
+  author?: string;
 }) {
   return (
     <div className="mb-6">
@@ -70,6 +75,12 @@ export function PageHeader({
         </h1>
         {noCopy ? null : <CopyPageButton markdownPath={markdownPath} />}
       </div>
+      {date ? (
+        <p className="mt-3 text-sm text-[var(--fg-subtle)]">
+          <time dateTime={date}>{formatPostDate(date)}</time>
+          {author ? <> · {author}</> : null}
+        </p>
+      ) : null}
       {description ? (
         <p className="mt-3 text-lg text-[var(--fg-muted)]">{description}</p>
       ) : null}

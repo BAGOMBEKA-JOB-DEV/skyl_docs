@@ -53,6 +53,8 @@ export async function DocPage({ track, route }: { track: TrackId; route: string 
               {...(doc.frontmatter.description ? { description: doc.frontmatter.description } : {})}
               {...(doc.frontmatter.badge ? { badge: doc.frontmatter.badge } : {})}
               {...(doc.frontmatter.noCopy ? { noCopy: true } : {})}
+              {...(doc.frontmatter.date ? { date: doc.frontmatter.date } : {})}
+              {...(doc.frontmatter.author ? { author: doc.frontmatter.author } : {})}
               markdownPath={`/md${route}.md`}
             />
 

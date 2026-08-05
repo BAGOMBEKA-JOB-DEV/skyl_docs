@@ -22,6 +22,10 @@ export interface Frontmatter {
   badge?: string;
   /** Suppresses the "Copy page" affordance where it makes no sense. */
   noCopy?: boolean;
+  /** ISO publication date. Blog posts only; renders as a byline. */
+  date?: string;
+  /** Byline author. Blog posts only. */
+  author?: string;
 }
 
 export interface Doc {

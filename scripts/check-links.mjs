@@ -33,10 +33,22 @@ function routesFromSidebar(file) {
   return [...src.matchAll(/path:\s*'([^']+)'/g)].map((m) => m[1]);
 }
 
+/**
+ * `blog.ts` builds its entries from `src/data/blog.ts` with a template literal,
+ * so the regex above sees only the literal `/blog`. Expand the generated post
+ * routes from the data file instead — otherwise every post looks orphaned.
+ */
+function blogPostRoutes() {
+  const src = fs.readFileSync(path.join(ROOT, 'src', 'data', 'blog.ts'), 'utf8');
+  return [...src.matchAll(/^\s*slug:\s*'([^']+)'/gm)].map((m) => `/blog/${m[1]}`);
+}
+
 const sidebarRoutes = [
   ...routesFromSidebar('learn.ts'),
   ...routesFromSidebar('reference.ts'),
   ...routesFromSidebar('community.ts'),
+  ...routesFromSidebar('blog.ts'),
+  ...blogPostRoutes(),
 ];
 
 // --------------------------------------------------------------------------

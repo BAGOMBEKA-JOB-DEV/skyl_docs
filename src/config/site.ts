@@ -74,18 +74,17 @@ export const modules = [
 ] as const;
 
 /**
- * Top-level navigation.
+ * Top-level navigation, mirroring react.dev's four-item bar.
  *
- * react.dev has a fourth item, Blog. skyl has not shipped a release yet, so
- * there is nothing to post — and a nav item leading to an empty page is worse
- * than one that is absent. Add it back alongside the first release notes.
- *
- * Every href here is asserted to resolve by scripts/check-links.mjs.
+ * Every href here is asserted to resolve by scripts/check-links.mjs — this item
+ * set once shipped a Blog link to a page that did not exist, and the checker
+ * exempted it rather than verifying it.
  */
 export const topNav = [
   { label: 'Learn', href: '/learn' },
   { label: 'Reference', href: '/reference/skyl' },
   { label: 'Community', href: '/community' },
+  { label: 'Blog', href: '/blog' },
 ] as const;
 
 /** The sandbox's defaults, used throughout the "run it without a key" path. */
