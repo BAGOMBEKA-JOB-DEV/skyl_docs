@@ -11,6 +11,50 @@ need model access, or when you want API keys held in exactly one place.
 
 </Intro>
 
+## Calling it from another language
+
+The gateway speaks ordinary JSON over HTTP, so there is no SDK to install in any
+language — the wire format *is* the interface.
+
+<LanguageTabs>
+
+```bash
+curl -sS "$SKYL_URL/v1/chat" \
+  -H "Authorization: Bearer $SKYL_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"gpt-5.6","max_tokens":256,
+       "messages":[{"role":"user","text":"Hello"}]}'
+```
+
+```python verify
+import httpx
+
+r = httpx.post(f"{BASE}/v1/chat", headers=HEADERS, timeout=120.0, json={
+    "model": "gpt-5.6",
+    "max_tokens": 256,
+    "messages": [{"role": "user", "text": "Hello"}],
+})
+print(r.json()["text"])
+```
+
+```ts verify
+const res = await fetch(`${BASE}/v1/chat`, {
+  method: 'POST',
+  headers: HEADERS,
+  body: JSON.stringify({
+    model: 'gpt-5.6',
+    max_tokens: 256,
+    messages: [{ role: 'user', text: 'Hello' }],
+  }),
+});
+console.log((await res.json()).text);
+```
+
+</LanguageTabs>
+
+Complete clients — streaming, the tool-calling loop and error handling — are on
+[Calling the gateway from another language](/reference/gateway/from-other-languages).
+
 ## It is a separate module
 
 <TerminalBlock>go get github.com/BAGOMBEKA-JOB-DEV/skyl/gateway</TerminalBlock>

@@ -131,6 +131,7 @@ export const sidebarReference: Sidebar = [
       { title: 'GET /v1/providers', path: '/reference/gateway/providers' },
       { title: 'Health and metrics', path: '/reference/gateway/health-and-metrics' },
       { title: 'Security and deployment', path: '/reference/gateway/security' },
+      { title: 'From other languages', path: '/reference/gateway/from-other-languages' },
     ],
   },
   {

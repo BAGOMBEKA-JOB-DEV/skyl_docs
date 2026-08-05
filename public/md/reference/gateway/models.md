@@ -67,10 +67,37 @@ Requires `Authorization: Bearer <SKYL_AUTH_TOKEN>`. Returns
 
 <Recipe title="Listing a provider's models">
 
+<LanguageTabs>
+
 ```bash
 curl -sS "localhost:8080/v1/models?provider=openai" \
   -H "Authorization: Bearer $SKYL_AUTH_TOKEN"
 ```
+
+```python verify
+import httpx
+
+r = httpx.get(f"{BASE}/v1/models", headers=HEADERS, params={"provider": "openai"})
+r.raise_for_status()
+for m in r.json()["models"]:
+    print(m["id"], m.get("context_window") or "")
+```
+
+```ts verify
+const res = await fetch(`${BASE}/v1/models?provider=openai`, { headers: HEADERS });
+if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+const { models } = await res.json();
+for (const m of models) console.log(m.id, m.context_window ?? '');
+```
+
+</LanguageTabs>
+
+<Note>
+
+`BASE` and `HEADERS` are set up in
+[Calling the gateway from another language](/reference/gateway/from-other-languages).
+
+</Note>
 
 </Recipe>
 

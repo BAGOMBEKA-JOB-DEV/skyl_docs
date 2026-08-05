@@ -27,6 +27,7 @@ import {
 } from './learn';
 import { DeepDive, Note, Pitfall, PreV1, Unvalidated, Wip } from './callouts';
 import { Panel, ProviderTabs } from './provider-tabs';
+import { LanguageTabs } from './language-tabs';
 import { AsciiDiagram, ClientStackDiagram, Diagram } from './diagram';
 import { FeatureMatrix } from '@/components/feature-matrix/feature-matrix';
 import * as DataViews from './data-views';
@@ -167,6 +168,7 @@ export const mdxComponents = {
 
   // --- interactive ---
   ProviderTabs,
+  LanguageTabs,
   Panel,
   FeatureMatrix,
 

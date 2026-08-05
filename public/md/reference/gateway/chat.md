@@ -48,6 +48,8 @@ Use `text` for a plain turn and `content` for anything typed. Do not set both.
 
 <Recipe title="A simple completion">
 
+<LanguageTabs>
+
 ```bash
 curl -sS localhost:8080/v1/chat \
   -H "Authorization: Bearer $SKYL_AUTH_TOKEN" \
@@ -59,6 +61,44 @@ curl -sS localhost:8080/v1/chat \
     "messages": [{"role": "user", "text": "Hello"}]
   }'
 ```
+
+```python verify
+import httpx
+
+r = httpx.post(f"{BASE}/v1/chat", headers=HEADERS, timeout=120.0, json={
+    "provider": "anthropic",
+    "model": "claude-opus-5",
+    "max_tokens": 512,
+    "messages": [{"role": "user", "text": "Hello"}],
+})
+r.raise_for_status()
+print(r.json()["text"])
+```
+
+```ts verify
+const res = await fetch(`${BASE}/v1/chat`, {
+  method: 'POST',
+  headers: HEADERS,
+  body: JSON.stringify({
+    provider: 'anthropic',
+    model: 'claude-opus-5',
+    max_tokens: 512,
+    messages: [{ role: 'user', text: 'Hello' }],
+  }),
+});
+if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+console.log((await res.json()).text);
+```
+
+</LanguageTabs>
+
+<Note>
+
+The Python and TypeScript blocks assume the `BASE` and `HEADERS` set up in
+[Calling the gateway from another language](/reference/gateway/from-other-languages),
+which also carries the streaming and tool-calling loops in full.
+
+</Note>
 
 ```json
 {

@@ -39,6 +39,23 @@ test('appears while a slow navigation is in flight, then clears', async ({ page 
   await expect(bar(page)).toHaveAttribute('data-pending', 'false');
 });
 
+/** The CSS threshold the no-flash guarantee is built on. */
+const DELAY_MS = 150;
+
+test('the delay that suppresses the flash is actually applied', async ({ page }) => {
+  await page.goto('/learn/');
+
+  // The mechanism, asserted directly: this holds regardless of machine load,
+  // where a timing-based check cannot.
+  const delay = await bar(page).evaluate((el) => {
+    el.classList.add('nav-progress--active');
+    const d = getComputedStyle(el).transitionDelay;
+    el.classList.remove('nav-progress--active');
+    return d;
+  });
+  expect(delay).toBe(`${DELAY_MS / 1000}s`);
+});
+
 test('never becomes visible on a fast navigation', async ({ page }) => {
   await page.goto('/learn/');
 
@@ -47,17 +64,27 @@ test('never becomes visible on a fast navigation', async ({ page }) => {
   const opacities: string[] = [];
   const sampler = setInterval(async () => {
     try {
-      opacities.push(
-        await bar(page).evaluate((el) => getComputedStyle(el).opacity),
-      );
+      opacities.push(await bar(page).evaluate((el) => getComputedStyle(el).opacity));
     } catch {
       /* navigating; the next tick will catch it */
     }
   }, 25);
 
+  const started = Date.now();
   await page.getByRole('link', { name: 'Installation' }).first().click();
   await expect(page.locator('h1')).toContainText('Installation');
+  const elapsed = Date.now() - started;
   clearInterval(sampler);
+
+  // This test's premise is that the navigation *was* fast. Under a loaded CI
+  // machine — four browsers in parallel — it genuinely is not, and the bar
+  // then appears correctly. Asserting anyway would make a real behaviour look
+  // like a defect, so skip rather than lie about what was observed. The
+  // mechanism itself is covered by the delay test above.
+  test.skip(
+    elapsed > DELAY_MS,
+    `navigation took ${elapsed}ms, so the no-flash claim does not apply`,
+  );
 
   const visible = opacities.filter((o) => Number(o) > 0.1);
   expect(visible, `bar flashed on a fast navigation (${visible.length} samples)`).toHaveLength(0);
