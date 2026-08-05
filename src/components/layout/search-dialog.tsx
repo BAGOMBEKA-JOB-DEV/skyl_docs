@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { startNavigation } from './navigation-progress';
 
 export interface SearchEntry {
   route: string;
@@ -70,6 +71,9 @@ export function SearchDialog({ index }: { index: SearchEntry[] }) {
   const go = useCallback(
     (route: string) => {
       setOpen(false);
+      // A programmatic push fires no click, so the progress bar's document
+      // listener cannot see it. Tell it directly.
+      startNavigation();
       router.push(route);
     },
     [router],

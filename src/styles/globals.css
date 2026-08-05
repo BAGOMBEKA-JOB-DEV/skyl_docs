@@ -190,3 +190,68 @@ html.dark .shiki--light {
   overflow-x: auto;
   max-width: 100%;
 }
+
+/* ---------------------------------------------------------------------------
+ * Navigation progress bar.
+ *
+ * The 150ms delay is the whole design: the element is always mounted, and a
+ * navigation that completes inside that window never paints it. A bar that
+ * flashes on every fast click is worse than no bar, and doing it in CSS means
+ * there is no timer to schedule, cancel or leak.
+ * ------------------------------------------------------------------------- */
+
+.nav-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 60;
+  height: 2px;
+  pointer-events: none;
+  opacity: 0;
+  /* Fade out immediately on arrival; fade in only after the threshold. */
+  transition: opacity 120ms ease-out;
+}
+
+.nav-progress--active {
+  opacity: 1;
+  transition-delay: 150ms;
+}
+
+.nav-progress__bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent) 40%,
+    var(--accent) 60%,
+    transparent 100%
+  );
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  /* Indeterminate: real progress is unknowable, so do not imply a percentage. */
+  animation: nav-progress-sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes nav-progress-sweep {
+  0% {
+    background-position: -40% 0;
+  }
+  100% {
+    background-position: 140% 0;
+  }
+}
+
+/*
+ * The global reduced-motion rule above collapses every animation to ~0s, which
+ * would leave the sweep frozen mid-gradient and often invisible. Replace it
+ * with a solid static bar so the feedback survives without movement.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .nav-progress__bar {
+    background: var(--accent);
+    background-size: auto;
+    animation: none;
+  }
+}

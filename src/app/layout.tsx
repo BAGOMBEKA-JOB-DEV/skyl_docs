@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { siteConfig } from '@/config/site';
 import { ThemeScript } from '@/components/layout/theme-script';
 import { SiteHeader } from '@/components/layout/site-header';
+import { NavigationProgress } from '@/components/layout/navigation-progress';
 import { SidebarDrawerProvider } from '@/components/layout/sidebar-drawer-context';
 import '@/styles/globals.css';
 
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SidebarDrawerProvider>
+          <NavigationProgress />
           <SiteHeader />
           {children}
         </SidebarDrawerProvider>
