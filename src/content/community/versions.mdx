@@ -55,7 +55,9 @@ repository. It follows from its third design principle — honesty over coverage
 and it is worth reading literally rather than as modesty.
 
 The gap is specific and closable: it needs someone with real credentials to run
-`go test -tags=integration`, or to record a cassette. See
+`go test -tags=integration -v -run TestLive ./provider/`, or to record a
+cassette — see [Validating against real providers](/reference/sandbox/validating).
+Also see
 [The three test suites](/reference/sandbox/test-suites).
 
 ## Breaking changes so far
