@@ -4,6 +4,7 @@ import { ThemeScript } from '@/components/layout/theme-script';
 import { SiteHeader } from '@/components/layout/site-header';
 import { NavigationProgress } from '@/components/layout/navigation-progress';
 import { Credits } from '@/components/layout/credits';
+import { MobileNav } from '@/components/layout/mobile-nav';
 import { SidebarDrawerProvider } from '@/components/layout/sidebar-drawer-context';
 import '@/styles/globals.css';
 
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <NavigationProgress />
           <Credits />
           <SiteHeader />
+          <MobileNav />
           {children}
         </SidebarDrawerProvider>
       </body>

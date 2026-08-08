@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Sidebar, SidebarItem } from '@/sidebars/types';
-import { useSidebarDrawer } from './sidebar-drawer-context';
 
 /**
  * The per-track sidebar.
@@ -15,24 +14,17 @@ import { useSidebarDrawer } from './sidebar-drawer-context';
  */
 export function DocSidebar({ sidebar }: { sidebar: Sidebar }) {
   const pathname = usePathname() ?? '';
-  const { open, setOpen } = useSidebarDrawer();
 
   return (
-    <>
-      {open ? (
-        <div
-          className="fixed inset-0 z-30 bg-black/40 xl:hidden"
-          onClick={() => setOpen(false)}
-          role="presentation"
-        />
-      ) : null}
-
       <aside
         data-testid="doc-sidebar"
+        // Desktop only. Below `xl` navigation lives in `MobileNav`, which is
+        // mounted in the layout so it exists on the home page too — this
+        // component cannot serve that role because `DocPage` does not render
+        // there.
         className={[
-          'fixed inset-y-0 left-0 z-40 w-72 overflow-y-auto border-r px-4 pb-16 pt-20 transition-transform',
-          'xl:sticky xl:top-16 xl:z-0 xl:h-[calc(100vh-4rem)] xl:translate-x-0 xl:pt-6',
-          open ? 'translate-x-0' : '-translate-x-full',
+          'hidden w-72 overflow-y-auto border-r px-4 pb-16',
+          'xl:sticky xl:top-16 xl:block xl:h-[calc(100vh-4rem)] xl:pt-6',
         ].join(' ')}
         style={{ background: 'var(--bg)' }}
         aria-label="Documentation navigation"
@@ -50,7 +42,6 @@ export function DocSidebar({ sidebar }: { sidebar: Sidebar }) {
           </div>
         ))}
       </aside>
-    </>
   );
 }
 

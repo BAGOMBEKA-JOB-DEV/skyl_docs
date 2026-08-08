@@ -106,3 +106,73 @@ test('a page with too few headings still reserves the TOC column', async ({ page
   // between pages does not shift the text sideways.
   expect(Math.abs(withToc.x - withoutToc.x)).toBeLessThanOrEqual(2);
 });
+
+/**
+ * Mobile navigation.
+ *
+ * Below `lg` the header's track links are hidden, and the drawer used to carry
+ * only the current track's pages — so a phone reader could not get from Learn
+ * to Reference at all, and on the home page had nothing but two hero buttons.
+ */
+const MOBILE = { width: 430, height: 932 };
+
+test('the menu opens from the home page and reaches another track', async ({ page }) => {
+  await page.setViewportSize(MOBILE);
+  await page.goto('/');
+
+  // The journey that was impossible: home -> Reference, on a phone.
+  await page.getByTestId('nav-toggle').click();
+  const drawer = page.getByTestId('mobile-nav');
+  await expect(drawer).toHaveAttribute('aria-hidden', 'false');
+  await expect.poll(async () => Math.round((await drawer.boundingBox())!.x)).toBe(0);
+
+  for (const label of ['Learn', 'Reference', 'Community', 'Blog']) {
+    await expect(drawer.getByRole('link', { name: label, exact: true })).toBeVisible();
+  }
+
+  await drawer.getByRole('link', { name: 'Reference', exact: true }).click();
+  await expect(page.locator('h1')).toContainText('skyl API Reference');
+});
+
+test('the drawer carries both the tracks and the current section', async ({ page }) => {
+  await page.setViewportSize(MOBILE);
+  await page.goto('/learn/');
+  await page.getByTestId('nav-toggle').click();
+
+  const drawer = page.getByTestId('mobile-nav');
+  // Track switcher…
+  await expect(drawer.getByRole('link', { name: 'Community', exact: true })).toBeVisible();
+  // …and this track's own pages.
+  await expect(drawer.getByRole('link', { name: 'Installation' })).toBeVisible();
+
+  // Leaving the track entirely is the case that had no path before.
+  await drawer.getByRole('link', { name: 'Community', exact: true }).click();
+  await expect(page.locator('h1')).toContainText('skyl Community');
+});
+
+test('the drawer closes on navigation and on backdrop tap', async ({ page }) => {
+  await page.setViewportSize(MOBILE);
+  await page.goto('/learn/');
+  const drawer = page.getByTestId('mobile-nav');
+
+  await page.getByTestId('nav-toggle').click();
+  await expect(drawer).toHaveAttribute('aria-hidden', 'false');
+  // Tap to the right of the drawer: it is 320px wide and sits above the
+  // backdrop, so a tap at x=5 would land on the drawer itself.
+  await page.getByTestId('mobile-nav-backdrop').click({ position: { x: MOBILE.width - 20, y: 400 } });
+  await expect(drawer).toHaveAttribute('aria-hidden', 'true');
+
+  await page.getByTestId('nav-toggle').click();
+  await drawer.getByRole('link', { name: 'Installation' }).first().click();
+  await expect(page.locator('h1')).toContainText('Installation');
+  // Landing on the new page with the menu still covering it would be a bug.
+  await expect(drawer).toHaveAttribute('aria-hidden', 'true');
+});
+
+test('the drawer is absent on desktop, where the header nav is visible', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/learn/');
+
+  await expect(page.getByTestId('mobile-nav')).toBeHidden();
+  await expect(page.getByTestId('doc-sidebar')).toBeVisible();
+});

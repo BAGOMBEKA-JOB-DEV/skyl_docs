@@ -33,9 +33,17 @@ export function NavLinks({ items }: { items: { label: string; href: string }[] }
   );
 }
 
-/** Opens the sidebar as a drawer on narrow screens. */
+/**
+ * Opens the navigation drawer on narrow screens.
+ *
+ * Rendered on every route below `xl`, because below that breakpoint it is the
+ * *only* way to reach the top-level tracks — `NavLinks` above is hidden until
+ * `lg`, and without this there is no path from the home page to Learn or
+ * Reference at all. What it opens is `MobileNav`, not the doc sidebar.
+ */
 export function MobileNavToggle() {
   const { open, setOpen } = useSidebarDrawer();
+
   return (
     <button
       type="button"
