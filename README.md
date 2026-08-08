@@ -73,6 +73,37 @@ src/
 └── config/site.ts  Version, module table, top nav
 ```
 
+### How a page becomes a file
+
+Worth knowing before editing anything, because one of the outputs is committed,
+looks editable, and is not:
+
+```mermaid
+flowchart LR
+    mdx[["src/content/**/*.mdx<br/><b>the source</b>"]]
+    side["src/sidebars/*.ts"]
+    data["src/data/*<br/>extracted from the Go source"]
+
+    mdx --> next["next build"]
+    side --> next
+    data --> next
+
+    mdx --> emit["scripts/emit-markdown.mjs<br/>runs as prebuild"]
+
+    next --> out["out/<br/>static export · gitignored"]
+    emit --> pub[["public/md/**/*.md<br/><b>generated · committed</b><br/>serves the Copy page button"]]
+
+    edit(["edit here"]) -.-> mdx
+    dont(["never here —<br/>overwritten every build"]) -.-> pub
+
+    style mdx stroke-width:3px
+    style pub stroke-dasharray:5 4
+```
+
+`public/md/` holds 166 committed `.md` files. They are **generated** from the
+MDX by `prebuild`, so a hand edit survives exactly until the next
+`npm run build` and then disappears with no diff to explain it. Edit the MDX.
+
 ## Adding a page
 
 1. Add an entry to the relevant file in `src/sidebars/`.
@@ -121,6 +152,32 @@ CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests, the build, the
 link check, the Go snippet compiler and the end-to-end suite, and uploads `out/`
 as a build artefact — so a built site is downloadable from any run without a
 deployment step.
+
+Deploying the *gateway* is a different problem and lives elsewhere — see
+[skyl_infrastructure](https://github.com/BAGOMBEKA-JOB-DEV/skyl_infrastructure).
+This section is only about the site.
+
+## The three repositories
+
+| Repository | What it is |
+|---|---|
+| [skyl](https://github.com/BAGOMBEKA-JOB-DEV/skyl) | The Go library, the adapters, and the gateway — the thing being documented |
+| **[skyl_docs](https://github.com/BAGOMBEKA-JOB-DEV/skyl_docs)** | This one — the [documentation site](https://skyl-docs.vercel.app/) |
+| [skyl_infrastructure](https://github.com/BAGOMBEKA-JOB-DEV/skyl_infrastructure) | Deployment: Terraform for AWS/GCP/Azure, the Helm chart, CI |
+
+The split is deliberate: a docs change never touches the library's release
+history, and neither does an infrastructure change. The cost is that the same
+fact can drift across three repositories — which is why `check:snippets`
+compiles every `verify` Go block against a real skyl checkout rather than
+trusting that the prose kept up.
+
+**Diagrams differ between repositories, on purpose.** Here they are React
+components — `Diagram`, `AsciiDiagram`, `ClientStackDiagram` in
+`src/components/mdx/diagram.tsx` — rendered as inline SVG or pre-formatted ASCII
+so they inherit the page theme and scale with the reader's font size. An image
+would be wrong in one theme or the other. The two GitHub-only repositories use
+mermaid in markdown instead, because GitHub renders it natively and there is no
+build step to hook. A diagram does not move between the two unchanged.
 
 ## Licence
 
