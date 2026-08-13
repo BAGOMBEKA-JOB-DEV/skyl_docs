@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/BAGOMBEKA-JOB-DEV/skyl_docs/security/advisories/new
+    about: Report privately. Do not open a public issue — see SECURITY.md.
+  - name: Bug in skyl itself
+    url: https://github.com/BAGOMBEKA-JOB-DEV/skyl/issues/new/choose
+    about: If the library behaves differently from what a page says, the library repository is usually the right place.
+  - name: Deploying the gateway
+    url: https://github.com/BAGOMBEKA-JOB-DEV/skyl_infrastructure
+    about: Terraform, Kubernetes and the Helm chart live in the infrastructure repository.

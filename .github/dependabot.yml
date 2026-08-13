@@ -1,0 +1,61 @@
+# Dependabot for the npm tree and the workflows.
+#
+# This is the sharper of the three repositories to leave unwatched: a Next.js
+# app carries a large transitive dependency graph, and it is the one place in
+# the project where a vulnerability arrives through code nobody here wrote.
+#
+# The site is a static export with no server, no database and no user input,
+# which limits what a compromised runtime dependency could do at serve time. It
+# does not limit what a compromised *build* dependency could do — that runs in
+# CI with a token.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Africa/Kampala
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      # Grouped so a week of routine patches is one PR to review, not fifteen.
+      # Security advisories are never grouped — they arrive separately and
+      # immediately, regardless of the schedule above.
+      dev-dependencies:
+        dependency-type: development
+        update-types: [minor, patch]
+      production-minor-patch:
+        dependency-type: production
+        update-types: [minor, patch]
+    labels:
+      - dependencies
+    ignore:
+      # Next majors move the App Router and the build output together; that is a
+      # migration with a changelog to read, not something to take from a bot.
+      - dependency-name: next
+        update-types: [version-update:semver-major]
+      - dependency-name: react
+        update-types: [version-update:semver-major]
+      - dependency-name: react-dom
+        update-types: [version-update:semver-major]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+      day: monday
+      time: "06:00"
+      timezone: Africa/Kampala
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      actions:
+        update-types: [minor, patch]
+    labels:
+      - dependencies
