@@ -27,9 +27,9 @@
     "check:wire": "node scripts/check-wire-snippets.mjs"
   },
   "dependencies": {
-    "next": "^15.5.22",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "next": "^15.5.23",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
