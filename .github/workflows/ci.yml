@@ -17,12 +17,12 @@ jobs:
     name: Lint, typecheck, test, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # The snippet checker compiles documentation code against the real
       # library, so the sibling repository has to be present.
       - name: Check out skyl
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: BAGOMBEKA-JOB-DEV/skyl
           path: .skyl
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 22
