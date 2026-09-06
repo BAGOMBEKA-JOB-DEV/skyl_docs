@@ -1,5 +1,7 @@
 # skyl documentation
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/BAGOMBEKA-JOB-DEV/skyl.svg)](https://pkg.go.dev/github.com/BAGOMBEKA-JOB-DEV/skyl)
+
 The documentation site for [skyl](https://github.com/BAGOMBEKA-JOB-DEV/skyl) —
 *one Go interface for every AI model*.
 
