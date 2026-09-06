@@ -103,4 +103,4 @@ somewhere:
 - [`Response.Raw`](/reference/skyl/response) is the untouched provider body, and
   is **always** populated.
 
-<PreV1 />
+<ApiStable />

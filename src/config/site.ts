@@ -58,12 +58,10 @@ export const siteConfig = {
  * The skyl version this documentation describes.
  *
  * Rendered in the header badge, so a reader always knows which version they are
- * reading. skyl is pre-v1: breaking changes may land in minor releases.
+ * reading. Since v1.0.0 the exported API is stable: no breaking change without
+ * a major version.
  */
-export const skylVersion = '0.1.0';
-
-/** skyl has not yet cut a tagged release. */
-export const isPreRelease = true;
+export const skylVersion = '1.0.0';
 
 /**
  * The Go modules that make up skyl.

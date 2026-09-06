@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 /**
@@ -97,29 +98,42 @@ export function DeepDive({ title, children }: { title: string; children: ReactNo
  * provider. `Unvalidated` says exactly that, rather than implying either more
  * or less confidence than is warranted.
  */
-export function Unvalidated({ children }: { children?: ReactNode }) {
+/**
+ * Live validation is a snapshot, not a subscription.
+ *
+ * This used to read "not yet validated against a live provider", and it was
+ * true when written. It stopped being true on 2026-08-05 and stayed on fourteen
+ * pages for a month afterwards, understating the project on every one of them —
+ * which is the same failure as overstating it, pointing the other way.
+ *
+ * The caveat is kept rather than deleted because the underlying risk is real:
+ * providers change their wire format without warning, and a passing run in
+ * August proves nothing about today.
+ */
+export function ValidationSnapshot({ children }: { children?: ReactNode }) {
   return (
-    <Callout tone="warn" label="Not yet validated against a live provider">
+    <Callout tone="note" label="Validated on 2026-08-05 — a snapshot, not a subscription">
       {children ?? (
         <p>
-          Everything on this page is implemented, unit-tested, contract-tested and exercised
-          end to end over real sockets — but every fake in the test suite was written from the
-          same provider documentation as the adapter it tests. If a field name is wrong, the
-          fake is wrong in the same way and both stay green. Treat it as ready to evaluate,
-          not ready to depend on.
+          Every adapter has been exercised against its live provider API, so the wire mapping
+          is confirmed rather than merely self-consistent. That was a point in time: providers
+          change their formats, and a run that passed then proves nothing about today.{' '}
+          <Link href="/reference/sandbox/validating">Re-run it against your own account</Link> before
+          depending on a behaviour that matters to you.
         </p>
       )}
     </Callout>
   );
 }
 
-export function PreV1({ children }: { children?: ReactNode }) {
+export function ApiStable({ children }: { children?: ReactNode }) {
   return (
-    <Callout tone="note" label="Pre-v1">
+    <Callout tone="note" label="Stable since v1.0.0">
       {children ?? (
         <p>
-          skyl has not reached v1.0.0. Breaking changes may land in minor releases; each one is
-          listed in the changelog with a migration note.
+          Everything on this page is part of the frozen API: it will not change without a major
+          version, which in Go means a new import path. Additions arrive in minor releases and
+          are listed in the changelog.
         </p>
       )}
     </Callout>

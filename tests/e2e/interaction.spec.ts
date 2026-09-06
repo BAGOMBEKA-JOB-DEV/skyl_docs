@@ -5,9 +5,11 @@ test.describe('home page', () => {
     await page.goto('/');
     await expect(page.getByRole('heading', { name: 'skyl', exact: true })).toBeVisible();
     await expect(page.getByText('One Go interface for every AI model.')).toBeVisible();
-    // The pre-v1 caveat is load-bearing: the project's own principle is
-    // honesty over coverage, so the banner must not be quietly dropped.
-    await expect(page.getByText(/not yet validated against live provider APIs/i)).toBeVisible();
+    // The caveat is load-bearing: the project's own principle is honesty over
+    // coverage, so the banner must not be quietly dropped when it becomes
+    // flattering to do so. v1.0.0 froze the API; it did not complete the
+    // feature surface, and the home page has to keep saying which is which.
+    await expect(page.getByText(/the feature surface is not complete/i)).toBeVisible();
   });
 
   test('animates the provider swap', async ({ page }) => {

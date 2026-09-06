@@ -134,4 +134,4 @@ Full detail: [Security and deployment](/reference/gateway/security).
 <YouWillLearnCard title="Security" path="/reference/gateway/security">Auth, CORS, concurrency, and deployment.</YouWillLearnCard>
 </CardGrid>
 
-<Unvalidated />
+<ValidationSnapshot />

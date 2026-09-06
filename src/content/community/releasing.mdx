@@ -115,7 +115,12 @@ users for no reason.
 
 <ModuleTable />
 
-## Pre-v1
+## After v1.0.0
 
-Breaking changes may land in minor releases, and must appear in the changelog
-with a migration note. See [Versions](/community/versions).
+The exported API is frozen. A breaking change needs a **major** version, which in
+Go means a new import path — `.../skyl/v2` — and a directory or branch to match.
+That cost is deliberate: it makes breaking an explicit act rather than an
+oversight.
+
+Additions are minor releases, fixes are patches, and both appear in the
+changelog. See [Versions](/community/versions).

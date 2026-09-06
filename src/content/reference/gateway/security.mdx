@@ -177,4 +177,4 @@ there. The gateway deliberately does not trust forwarding headers.
 
 </Trouble>
 
-<Unvalidated />
+<ValidationSnapshot />

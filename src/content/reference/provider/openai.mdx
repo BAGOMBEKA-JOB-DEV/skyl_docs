@@ -128,4 +128,4 @@ compatible hosts do not.
 
 </Trouble>
 
-<Unvalidated />
+<ValidationSnapshot />

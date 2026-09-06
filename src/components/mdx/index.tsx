@@ -25,7 +25,7 @@ import {
   YouWillLearn,
   YouWillLearnCard,
 } from './learn';
-import { DeepDive, Note, Pitfall, PreV1, Unvalidated, Wip } from './callouts';
+import { DeepDive, Note, Pitfall, ApiStable, ValidationSnapshot, Wip } from './callouts';
 import { Panel, ProviderTabs } from './provider-tabs';
 import { LanguageTabs } from './language-tabs';
 import { AsciiDiagram, ClientStackDiagram, Diagram } from './diagram';
@@ -149,8 +149,8 @@ export const mdxComponents = {
   Pitfall,
   DeepDive,
   Wip,
-  Unvalidated,
-  PreV1,
+  ValidationSnapshot,
+  ApiStable,
 
   // --- reference template ---
   Signature,

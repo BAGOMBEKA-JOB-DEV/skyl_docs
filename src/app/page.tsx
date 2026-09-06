@@ -181,15 +181,16 @@ export default function HomePage() {
             style={{ borderLeftColor: 'var(--warn)', background: 'var(--warn-bg)' }}
           >
             <h2 className="mb-2 text-lg font-bold" style={{ color: 'var(--warn)' }}>
-              Status: pre-v1, and not yet validated against live provider APIs
+              Status: v1.0.0 — the API is stable, the feature surface is not complete
             </h2>
             <p className="text-[0.95rem] leading-7">
-              Everything here is implemented, unit-tested, contract-tested, exercised end to end
-              over real sockets, and CI-green — but every fake in the test suite was written from
-              the same provider documentation as the adapter it tests. If a field name is wrong,
-              the fake is wrong in the same way and both stay green. No adapter has yet made a call
-              to a real provider.{' '}
-              <strong>Treat it as ready to evaluate, not ready to depend on in production.</strong>
+              Every adapter has been exercised against its live provider API, so the wire mapping
+              is confirmed rather than merely self-consistent. Since v1.0.0 the exported API is
+              frozen: no breaking change without a major version.{' '}
+              <strong>What is not promised is complete provider coverage.</strong> Each adapter
+              still silently ignores some provider features, and embeddings, prompt-caching
+              control, batch APIs, token counting and failover are deliberately deferred. Both
+              lists are published rather than implied.
             </p>
             <p className="mt-3 text-[0.95rem]">
               <Link href="/community/roadmap" className="font-semibold">

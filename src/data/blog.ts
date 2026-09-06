@@ -20,6 +20,16 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'skyl-1-0',
+    title: 'skyl 1.0',
+    date: '2026-09-06',
+    author: 'skyl maintainers',
+    summary:
+      'The exported API is frozen. What that promises, what it deliberately does not — the ' +
+      'twenty silently-ignored entries and five deferred features are still there — and why ' +
+      'freezing before the feature surface was complete cost nothing.',
+  },
+  {
     slug: 'silently-ignored',
     title: 'The fourteen things skyl silently ignores',
     date: '2026-08-05',
