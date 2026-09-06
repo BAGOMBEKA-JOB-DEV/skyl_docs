@@ -92,28 +92,32 @@ Plus `skyl/otel` as a fourth module, and
 
 In progress. The feature matrix, the silently-ignored list, and this site.
 
-## The one thing that still blocks adoption
+## What still limits adoption
 
 <Pitfall>
 
-**No adapter has yet made a call to a real provider.**
+**Live validation is a snapshot, not a subscription.**
 
-Everything is implemented, unit-tested, contract-tested, exercised end to end
-over real sockets and CI-green — but every fake in the test suite was written
-from the same provider documentation as the adapter it tests. If a field name is
-wrong, the fake is wrong in the same way and both stay green.
+Every adapter was exercised against its real provider API on 2026-08-05, which
+is what makes the wire mapping confirmed rather than merely self-consistent —
+before that, every fake in the suite had been written from the same provider
+documentation as the adapter it tested, so a wrong field name would have been
+wrong identically in both and CI would have stayed green.
 
-Only `go test -tags=integration -v -run TestLive ./provider/` settles it, and
-it needs credentials the project does not have. The procedure, the cost and the
-failure triage are documented in
+Providers change their formats without warning, and a run that passed in August
+proves nothing about today. `go test -tags=integration -v -run TestLive
+./provider/` settles it for your account and your models; the procedure, the
+cost and the failure triage are in
 [Validating against real providers](/reference/sandbox/validating).
 
 </Pitfall>
 
-This is the gap, stated plainly. It is closable by one contributor with a key —
-either by running the integration suite, or by recording a
-[cassette](/reference/sandbox/test-suites#cassettes), which improves the suite
-for everyone permanently.
+Recording a [cassette](/reference/sandbox/test-suites#cassettes) from such a run
+improves the suite for everyone permanently, and is the single most useful thing
+a contributor with a key can do.
+
+The larger limit is coverage, not correctness: each adapter still silently
+ignores some provider features, and the items below are deliberately deferred.
 
 ## Deferred, deliberately
 

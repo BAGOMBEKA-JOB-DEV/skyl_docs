@@ -93,10 +93,9 @@ export function DeepDive({ title, children }: { title: string; children: ReactNo
 /**
  * Stability badges.
  *
- * skyl's real status is unusual and worth being honest about: the code is
- * written, tested and CI-green, but no adapter has yet made a call to a live
- * provider. `Unvalidated` says exactly that, rather than implying either more
- * or less confidence than is warranted.
+ * These exist to state the project's real status rather than imply either more
+ * or less confidence than is warranted — which cuts both ways, as the comment
+ * below records.
  */
 /**
  * Live validation is a snapshot, not a subscription.
