@@ -105,4 +105,4 @@ would make skyl brittle against every provider's next feature.
 That is a design decision, not an oversight — and the one place skyl chooses
 tolerance over strictness.
 
-<Unvalidated />
+<ValidationSnapshot />

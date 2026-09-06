@@ -53,10 +53,11 @@ check proves and how to read a failure.
 
 </Pitfall>
 
-This is why the project describes itself as **ready to evaluate, not ready to
-depend on**. Everything is implemented, unit-tested, contract-tested, exercised
-end to end over real sockets and CI-green — and no adapter has yet made a call
-to a real provider.
+This is why the third suite exists at all. The first two can be green while an
+adapter and its fake are wrong in the same way, because both were written from
+the same provider documentation. Only a real call settles it, and one has been
+made against each adapter — a snapshot taken on 2026-08-05, not a standing
+guarantee.
 
 ## Cassettes
 

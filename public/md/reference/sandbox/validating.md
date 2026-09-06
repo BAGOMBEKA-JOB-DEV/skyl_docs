@@ -13,7 +13,7 @@ settles it**, and that needs your own credentials.
 
 </Intro>
 
-<Unvalidated />
+<ValidationSnapshot />
 
 ## What it costs
 

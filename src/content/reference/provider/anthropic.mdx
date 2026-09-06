@@ -151,4 +151,4 @@ It is dropped here. Use `thinking.budget_tokens` through `ProviderOptions`.
 
 </Trouble>
 
-<Unvalidated />
+<ValidationSnapshot />

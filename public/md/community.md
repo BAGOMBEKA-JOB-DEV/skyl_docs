@@ -59,7 +59,7 @@ Trust boundaries, what an authenticated gateway caller can do, and what is out o
 </YouWillLearnCard>
 
 <YouWillLearnCard title="Versions" path="/community/versions">
-The versioning policy, and what "pre-v1" means for breaking changes.
+The versioning policy, what v1.0.0 guarantees, and what it deliberately does not.
 </YouWillLearnCard>
 
 </CardGrid>
@@ -88,7 +88,7 @@ The multi-module release process. The order is not optional.
 
 ## Current status
 
-<Unvalidated />
+<ValidationSnapshot />
 
 This is stated on the front page of the repository too. skyl's first design
 principle after "never block the user from a model" is **honesty over

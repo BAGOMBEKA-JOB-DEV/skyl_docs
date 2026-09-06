@@ -55,4 +55,4 @@ privileges the in-tree adapters. An adapter in your own repository inherits
 retry, hooks, validation and the gateway with no changes to skyl. See
 [Writing an Adapter](/community/writing-an-adapter).
 
-<Unvalidated />
+<ValidationSnapshot />

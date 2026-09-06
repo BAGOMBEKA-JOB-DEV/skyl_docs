@@ -23,8 +23,10 @@ description.
 
 ## Supported versions
 
-skyl is **pre-v1**. Only the latest release receives fixes; there are no
-maintained backport branches. See [Versions](/community/versions).
+**v1.x is supported.** Fixes land on `main`, ship in the next release, and are
+backported to the current minor series. v0.1.0 is superseded — upgrading breaks
+no API, so there is no cost to moving off it. There are no maintained backport
+branches beyond the current minor. See [Versions](/community/versions).
 
 ## What skyl commits to
 

@@ -1,12 +1,13 @@
 ---
 title: Versions
-description: What pre-v1 means for breaking changes, and which versions are supported.
+description: What v1.0.0 guarantees, what it does not, and which versions are supported.
 ---
 
 <Intro>
 
-skyl is **pre-v1**. This page says exactly what that means for you, because
-"expect breaking changes" on its own is not useful planning information.
+skyl is **v1.0.0**. The exported API is frozen. This page says exactly what that
+guarantees and what it does not, because "stable" on its own is not useful
+planning information.
 
 </Intro>
 
@@ -15,19 +16,38 @@ skyl is **pre-v1**. This page says exactly what that means for you, because
 <DataTable
   headers={['', '']}
   rows={[
-    ['Version', <strong key="a">0.1.0 — unreleased</strong>],
-    ['Status', 'Ready to evaluate, not ready to depend on in production'],
+    ['Version', <strong key="a">1.0.0 — released 2026-09-06</strong>],
+    ['Status', 'API stable; provider coverage still incomplete'],
     ['License', 'Apache 2.0'],
   ]}
 />
 
 ## The versioning policy
 
-skyl follows [Semantic Versioning](https://semver.org/). Until v1.0.0:
+skyl follows [Semantic Versioning](https://semver.org/). Since v1.0.0:
 
-- **Breaking changes may land in minor releases.** They will always be listed in
-  the changelog **with a migration note** — never silently.
-- After v1.0.0, no breaking change to exported API without a major bump.
+- **No breaking change to the exported API without a major version.** In Go a
+  major version is a new import path — `.../skyl/v2` — so breaking is a
+  deliberate act, not an oversight. That cost is the point.
+- **Additive changes are minor releases**; fixes are patches. Both are listed in
+  the changelog.
+- The freeze covers `Provider`, `Client`, `Message`, `Part`, `Request`,
+  `Response`, `Stream`, the error sentinels and every functional option.
+
+### What the freeze does not cover
+
+The API is a contract about *shape*, not about *coverage*. Still outstanding,
+and still published rather than implied:
+
+- Each adapter silently ignores some provider features — see the
+  [feature matrix](/reference/provider/feature-matrix) and
+  [what is silently ignored](/reference/provider/silently-ignored).
+- Embeddings, prompt-caching control, batch APIs, token counting and failover
+  are deliberately deferred. Each needs a design decision before code;
+  embeddings in particular do not belong on `Provider`.
+
+None of those requires a breaking change to add, which is why freezing now costs
+nothing later.
 
 ## Go version floors
 
@@ -42,28 +62,30 @@ what the code needs fails the build rather than reaching a user.
 
 ## Supported versions
 
-Only the latest release receives fixes. There are **no maintained backport
-branches** — a pre-v1 project maintaining backports is a pre-v1 project not
-reaching v1.
+**v1.x is supported.** Fixes land on `main`, ship in the next release, and are
+backported to the current minor series as a patch.
 
-## What "not ready to depend on" means
+v0.1.0 is superseded and receives nothing. Upgrading to v1.x breaks no API, so
+there is no cost to moving off it.
 
-<Unvalidated />
+There are **no maintained backport branches** beyond the current minor. One
+maintainer cannot honestly promise more.
 
-This is the project's own assessment, stated on the front page of the
-repository. It follows from its third design principle — honesty over coverage —
-and it is worth reading literally rather than as modesty.
+## What "validated" means here
 
-The gap is specific and closable: it needs someone with real credentials to run
-`go test -tags=integration -v -run TestLive ./provider/`, or to record a
-cassette — see [Validating against real providers](/reference/sandbox/validating).
-Also see
+<ValidationSnapshot />
+
+Validation is a point in time, not a standing guarantee — providers change their
+wire formats without warning. Re-run it against your own account and models with
+`go test -tags=integration -v -run TestLive ./provider/`; see
+[Validating against real providers](/reference/sandbox/validating) and
 [The three test suites](/reference/sandbox/test-suites).
 
 ## Breaking changes so far
 
-The pre-0.1.0 development period included several, all recorded with migration
-notes. The two most consequential:
+All of them predate v1.0.0. Nothing broke between v0.1.0 and v1.0.0, and nothing
+may break again without a v2. Recorded here because they are still the two most
+likely to bite anyone upgrading from a pre-0.1.0 checkout:
 
 **The gateway's chat wire format was redesigned.** `ChatMessage.content` was a
 string and became a list of typed parts, with a `text` shorthand.
@@ -90,5 +112,6 @@ section names the behaviour that was wrong rather than the commit that fixed it.
 
 ## Documentation versions
 
-This site documents **v0.1.0**, shown in the badge beside the logo. There is no
-version archive yet — there has been only one version.
+This site documents **v1.0.0**, shown in the badge beside the logo. There is no
+version archive: the API is frozen, so one set of documentation describes every
+v1.x release.

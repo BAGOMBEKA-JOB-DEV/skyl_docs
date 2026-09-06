@@ -92,7 +92,7 @@ feature.
 
 ## What is not proven
 
-<Unvalidated />
+<ValidationSnapshot />
 
 This is worth stating plainly rather than burying. Everything is implemented,
 unit-tested, contract-tested, exercised end to end over real sockets, and
