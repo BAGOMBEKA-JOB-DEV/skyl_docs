@@ -47,10 +47,12 @@ see the [Security Policy](/community/security).
 
 ## What is most useful right now
 
-skyl's honest status is that **no adapter has yet made a call to a real
-provider**. Everything is implemented, unit-tested, contract-tested and CI-green
-— but every fake in the suite was written from the same provider documentation
-as the adapter it tests.
+Every adapter has now been exercised against its live provider API, so the wire
+mapping is confirmed rather than merely self-consistent. That was a snapshot
+taken on 2026-08-05, and providers change their formats without warning — so
+**re-running the integration suite against a provider you use is still among the
+most useful things anyone can contribute**, and recording a cassette from it
+improves the suite for everyone permanently.
 
 <Note>
 

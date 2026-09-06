@@ -16,10 +16,9 @@ those get the space to explain themselves.
 
 ## What is not here yet
 
-**Release notes.** skyl has not cut a release: `CHANGELOG.md` records `0.1.0` as
-*unreleased*, and no adapter has yet made a call to a live provider. When that
-changes, the release post will be the first thing on this page.
+**Per-release notes for every version.** The v1.0.0 announcement is above;
+earlier versions are covered by `CHANGELOG.md` rather than by a post each.
 
-Until then, [Versions](/community/versions) covers the versioning policy and the
+[Versions](/community/versions) covers the versioning policy and the
 breaking changes made during development, and [Roadmap](/community/roadmap)
 covers what stands between the current state and something a company can adopt.
