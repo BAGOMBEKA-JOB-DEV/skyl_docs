@@ -27,9 +27,9 @@
     "check:wire": "node scripts/check-wire-snippets.mjs"
   },
   "dependencies": {
-    "next": "^15.5.22",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "next": "^15.5.25",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
@@ -42,8 +42,8 @@
     "@testing-library/react": "^16.3.3",
     "@types/mdast": "^4.0.4",
     "@types/node": "^26.6.2",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^5.0.3",
     "eslint": "^9.36.0",
     "eslint-config-next": "^15.5.22",
